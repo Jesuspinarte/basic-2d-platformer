@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rb;
+    Animator animator;
+
     public bool grounded;
     public float speed = 5.0f;
     public float jumpForce = 8.0f;
@@ -14,13 +16,32 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
+    private void Update()
+    {
+        float xSpeed = Mathf.Abs(rb.linearVelocity.x);
+        float ySpeed = Mathf.Abs(rb.linearVelocity.y);
+        float blinkVal = Random.Range(0.0f, 800.0f);
+
+        animator.SetFloat("xSpeed", xSpeed);
+        animator.SetFloat("ySpeed", ySpeed);
+
+        if (rb.linearVelocity.x*transform.localScale.x < 0.0f)
+        {
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        }
+
+        if (blinkVal < 1.0f)
+        {
+            animator.SetTrigger("blinkTrigger");
+        }
+    }
+
     void FixedUpdate()
     {
         float h = Input.GetAxis("Horizontal");
-        Debug.Log(rb.linearVelocityY);
 
         if (grounded)
         {
