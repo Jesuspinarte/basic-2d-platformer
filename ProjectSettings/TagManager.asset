@@ -5,11 +5,13 @@ TagManager:
   serializedVersion: 3
   tags:
   - Coin
+  - Death
+  - LevelEnd
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Platforms
+  - Ground
   - Water
   - UI
   - 
