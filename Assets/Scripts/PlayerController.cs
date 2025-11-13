@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 8.0f;
     public float airControlForce = 10.0f;
     public float airControlMax = 1.5f;
+    public AudioSource coinSound;
 
     void Start()
     {
@@ -70,6 +71,15 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.layer == 3)
         {
             grounded = false;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Coin")
+        {
+            coinSound.Play();
+            Destroy(collision.gameObject);
         }
     }
 }
